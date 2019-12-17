@@ -1,0 +1,7 @@
+- name: Upload proxy configuration
+  template:
+    src: apt.conf.j2
+    dest: /etc/apt/apt.conf.d/proxy.conf
+    owner: root
+    group: root
+    mode: 0644

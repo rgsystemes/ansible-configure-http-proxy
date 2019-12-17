@@ -1,0 +1,7 @@
+---
+- name: Update ~/.npmrc 
+  shell: |
+    npm config set proxy {{proxy_url}}
+    npm config set https-proxy {{proxy_url}}
+  become_user: "{{item}}"
+  with_items: "{{npm_users}}"
