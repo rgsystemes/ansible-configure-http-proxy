@@ -13,4 +13,5 @@
     dest: ~/.docker/config.json
     owner: "{{item.username}}"
     group: "{{item.group}}"
+  become_user: "{{item.username}}"
   with_items: "{{docker_users}}"
