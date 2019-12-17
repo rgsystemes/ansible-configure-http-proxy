@@ -69,6 +69,8 @@ no_proxy: [] # Proxy whitelist : array of values such as ['localhost', '192.168.
 
     # configure-http-proxy.yml
     - hosts: all
+      gather_facts: yes
+      become: yes
       roles:
       - rgsystemes.ansible-configure-http-proxy
 
