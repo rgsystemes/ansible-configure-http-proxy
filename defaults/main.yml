@@ -1,0 +1,15 @@
+---
+proxy_ip: 127.0.0.1
+proxy_port: 8080
+proxy_url: "http://{{proxy_ip}}:{{proxy_port}}"
+proxy_username: ''
+proxy_password: ''
+proxy_configure_apt: yes
+npm_users:
+  - root
+git_users:
+  - root
+docker_users: 
+  - username: root
+    group: root
+no_proxy: []

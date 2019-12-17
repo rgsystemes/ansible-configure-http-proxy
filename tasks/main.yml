@@ -1,0 +1,32 @@
+---
+- name: Get the package facts
+  package_facts:
+    manager: apt
+
+- name: Update facts
+  set_fact:
+    apt_packages: "{{ansible_facts.packages|flatten}}"
+
+- name: Compute proxy_url if credentials are set
+  set_fact:
+    proxy_url: "http://{{proxy_username}}:{{proxy_password|urlencode}}@{{proxy_ip}}:{{proxy_port}}"
+  when: proxy_username is defined and
+        proxy_username != '' and
+        proxy_password is defined and
+        proxy_password != ''
+
+- name: Configure APT
+  import_tasks: _apt.yml
+  when: proxy_configure_apt
+  
+- name: Configure Git
+  import_tasks: _git.yml
+  when: '"git" in apt_packages'
+
+- name: Configure Npm
+  import_tasks: _npm.yml
+  when: '"nodejs" in apt_packages'
+
+- name: Configure Docker
+  import_tasks: _docker.yml
+  when: '"docker-ce" in apt_packages'
