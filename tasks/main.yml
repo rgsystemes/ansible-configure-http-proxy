@@ -18,15 +18,20 @@
 - name: Configure APT
   import_tasks: _apt.yml
   when: proxy_configure_apt
+  tags: ['apt']
   
 - name: Configure Git
   import_tasks: _git.yml
   when: '"git" in apt_packages'
+  tags: ['git']
 
 - name: Configure Npm
   import_tasks: _npm.yml
   when: '"nodejs" in apt_packages'
+  tags: ['npm']
 
 - name: Configure Docker
   import_tasks: _docker.yml
   when: '"docker-ce" in apt_packages'
+  tags: ['docker']
+
