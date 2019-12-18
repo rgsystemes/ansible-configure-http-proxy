@@ -65,12 +65,21 @@ docker_users: # same as npm but lies in ~/.docker/config.json. File permissions 
 no_proxy: [] # Proxy whitelist : array of values such as ['localhost', '192.168.0.0/16']
 ```
 
+## Troubleshooting
+
+The tasks related to Docker require to write files in /tmp although looping over a list of unprivileged users. This will raise an error with default settings. You need to set `allow_world_readable_tmpfiles = True` in your **ansible.cfg** or set it as an environment variable at the playbook level (see example below). 
+
 ## Example Playbook
 
     # configure-http-proxy.yml
     - hosts: all
+      gather_facts: yes
+      become: yes
       roles:
       - rgsystemes.ansible-configure-http-proxy
+
+      environment:
+        ALLOW_WORLD_READABLE_TMPFILES: true
 
       vars:
         proxy_ip: 10.0.0.1
