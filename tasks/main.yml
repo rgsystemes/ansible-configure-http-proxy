@@ -9,7 +9,7 @@
 
 - name: Compute proxy_url if credentials are set
   set_fact:
-    proxy_url: "http://{{proxy_username}}:{{proxy_password|urlencode}}@{{proxy_ip}}:{{proxy_port}}"
+    proxy_url: "http://{{ proxy_username }}:{{ proxy_password | urlencode }}@{{ proxy_ip }}:{{ proxy_port }}"
   when: proxy_username is defined and
         proxy_username != '' and
         proxy_password is defined and
