@@ -35,7 +35,6 @@ galaxy_info:
   # alphanumeric characters. Maximum 20 tags per role.
   galaxy_tags:
     - system
-    - http_proxy
     - proxy
 
 # List your role dependencies here, one per line. Only
