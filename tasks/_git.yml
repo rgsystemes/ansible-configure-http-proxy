@@ -3,6 +3,6 @@
   git_config:
     name: http.proxy
     scope: global
-    value: "{{proxy_url}}"
-  become: "{{item}}"
-  with_items: "{{git_users}}"
+    value: "{{ proxy_url }}"
+  become_user: "{{ item }}"
+  with_items: "{{ git_users }}"
