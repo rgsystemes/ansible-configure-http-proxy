@@ -1,0 +1,11 @@
+---
+language: python
+dist: bionic
+services: docker
+
+install:
+  - pip install yamllint ansible-lint
+
+script: 
+  - yamllint .
+  - ansible-lint
