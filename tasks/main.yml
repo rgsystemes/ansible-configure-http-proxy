@@ -34,4 +34,3 @@
   import_tasks: _docker.yml
   when: '"docker-ce" in apt_packages'
   tags: ['docker']
-

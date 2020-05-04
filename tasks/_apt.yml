@@ -1,3 +1,4 @@
+---
 - name: Upload proxy configuration
   template:
     src: apt.conf.j2
