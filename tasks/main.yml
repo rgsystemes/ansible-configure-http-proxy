@@ -5,7 +5,7 @@
 
 - name: Update facts
   set_fact:
-    apt_packages: "{{ansible_facts.packages|flatten}}"
+    apt_packages: "{{ ansible_facts.packages | flatten }}"
 
 - name: Compute proxy_url if credentials are set
   set_fact:
