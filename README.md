@@ -1,5 +1,7 @@
 # Ansible Role: Configure HTTP Proxy
 
+[![Build Status](https://travis-ci.com/rgsystemes/ansible-configure-http-proxy.svg?branch=master)](https://travis-ci.com/rgsystemes/ansible-configure-http-proxy)
+
 This role configures http_proxy for the apt package manager and other tools (currently git, npm , pip and docker-ce), that do not rely on the env. variable HTTP_PROXY.
 The tools are being configured if detected amongst installed packages.
 
