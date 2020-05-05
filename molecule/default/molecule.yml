@@ -23,8 +23,7 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
       - /var/log/squid/:/var/log/squid/:rw
-      - ./resources/htpasswd:/etc/squid/htpasswd:ro # credentials: admin / s3cr3t
-      - ./resources/squid.conf:/etc/squid/squid.conf
+      - ${MOLECULE_SCENARIO_DIRECTORY}/resources/:/etc/squid/ # htpasswd credentials: admin / s3cr3t
     privileged: true
     pre_build_image: true
     networks:
