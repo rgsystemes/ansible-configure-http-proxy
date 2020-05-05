@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: yes
+  remote_user: root
+
+  vars:
+    TRAVIS_PATH: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}"
+    VAGRANT_PATH: "{{ lookup('env', 'HOME') }}/ansible-configure-http-proxy"
+
+  roles:
+    - name: "{{ TRAVIS_PATH if TRAVIS_PATH else VAGRANT_PATH }}"
