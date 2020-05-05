@@ -1,6 +1,8 @@
-# ansible-configure-http-proxy
+# Ansible Role: Configure HTTP Proxy
 
-This role configures http_proxy for the apt package manager and other tools (currently git, npm and docker-ce), that do not rely on the env. variable HTTP_PROXY.
+[![Build Status](https://travis-ci.com/rgsystemes/ansible-configure-http-proxy.svg?branch=master)](https://travis-ci.com/rgsystemes/ansible-configure-http-proxy)
+
+This role configures http_proxy for the apt package manager and other tools (currently git, npm , pip and docker-ce), that do not rely on the env. variable HTTP_PROXY.
 The tools are being configured if detected amongst installed packages.
 
 ## Installation
@@ -42,8 +44,7 @@ Then you install via the following command (from your project's directory) :
 
 ## Requirements
 
-- Ansible >= 2.7
-- Debian/Ubuntu hosts
+- Ansible >= 2.8
 
 ## Role Variables
 
@@ -51,7 +52,7 @@ Then you install via the following command (from your project's directory) :
 ---
 proxy_ip: 127.0.0.1
 proxy_port: 8080
-proxy_url: "http://{{proxy_ip}}:{{proxy_port}}"
+proxy_url: "http://{{ proxy_ip }}:{{ proxy_port }}"
 proxy_username: '' # if both username and password are set, the generated proxy_url variable will include them as follows : http://user:pass@host:port
 proxy_password: ''
 proxy_configure_apt: yes # set to no if you wish apt not to be configured by the role
@@ -76,7 +77,7 @@ The tasks related to Docker require to write files in /tmp although looping over
       gather_facts: yes
       become: yes
       roles:
-      - rgsystemes.ansible-configure-http-proxy
+        - rgsystemes.ansible-configure-http-proxy
 
       environment:
         ALLOW_WORLD_READABLE_TMPFILES: true
