@@ -20,11 +20,11 @@ cache:
 
 install:
   - curl -skL https://bootstrap.pypa.io/get-pip.py | python3
-  - pip3 install pipenv
-  - pipenv install
+  - sudo -H pip3 install pipenv
+  - sudo -H pipenv install
 
 script:
-  - pipenv run molecule test
+  - sudo -E pipenv run molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
