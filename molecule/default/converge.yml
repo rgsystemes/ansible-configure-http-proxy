@@ -26,13 +26,15 @@
 
     # For Debian-based systems python-apt package must be installed on targeted hosts.
     # https://docs.ansible.com/ansible/latest/modules/package_facts_module.html
-    - name: Install python apt
+    - name: Install python dependencies
       apt:
-        name: python3-apt
+        name: 
+          - python3-apt
+          - python-setuptools
         state: present
         update_cache: yes # ensure apt cache is up-to-date before nodejs role attempts to install additionnal packages such as gnupg2
 
-    - name: Install python-pip # geerlingguy.pip doesnt work yet with ubuntu2004
+    - name: Install pip via apt # geerlingguy.pip doesnt work yet with ubuntu2004
       block:
         - name: Install python-pip for Buster, Bionic
           apt:
