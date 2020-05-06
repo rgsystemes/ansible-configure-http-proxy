@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+ansible = ">=2.9.5"
+ansible-lint = "*"
+yamllint = "*"
+docker = "*"
+molecule = "==3.0.2"
+python-vagrant = "*"
+
+[requires]
+python_version = "3.6"
