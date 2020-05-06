@@ -2,7 +2,7 @@
 - name: Prepare
   hosts: localhost
   become: yes
-  gather_facts: yes
+  gather_facts: no
 
   tasks:
     - name: Create docker network
