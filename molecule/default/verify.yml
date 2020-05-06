@@ -42,3 +42,9 @@
         name: npm
         global: yes
         state: latest # noqa 403
+    
+    - name: Git clone using HTTPS protocol
+      git:
+        repo: https://github.com/ansible/awx.git
+        dest: /opt/awx
+        version: 11.2.0
