@@ -41,4 +41,4 @@
       npm:
         name: npm
         global: yes
-        state: latest
+        state: latest # noqa 403
