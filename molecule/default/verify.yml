@@ -48,3 +48,9 @@
         repo: https://github.com/ansible/awx.git
         dest: /opt/awx
         version: 11.2.0
+
+    - name: Update pip using pip
+      pip:
+        name: pip
+        state: latest # noqa 403
+        executable: /usr/bin/pip3

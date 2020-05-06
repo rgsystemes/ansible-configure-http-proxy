@@ -32,19 +32,26 @@
         state: present
         update_cache: yes # ensure apt cache is up-to-date before nodejs role attempts to install additionnal packages such as gnupg2
 
+    - name: Install python-pip # geerlingguy.pip doesnt work yet with ubuntu2004
+      block:
+        - name: Install python-pip for Buster, Bionic
+          apt:
+            name: python3-pip
+            state: present
+          when: ansible_distribution_release in ['buster', 'bionic']
+
+        - name: Install python-pip for Focal
+          apt:
+            name: python-pip-whl
+            state: present
+          when: ansible_distribution_release == 'focal'
+
   roles:
     - name: geerlingguy.nodejs
       vars: 
         nodejs_version: "10.x"
         npm_config_prefix: "/usr/local/lib/npm"
         npm_config_unsafe_perm: "true"
-      tags: ['dependencies', 'molecule-idempotence-notest']
-    - name: geerlingguy.pip
-      vars:
-        pip_install_packages:
-          - name: docker
-            state: present
-            executable: /usr/bin/pip3
       tags: ['dependencies', 'molecule-idempotence-notest']
     - role: geerlingguy.git
       tags: ['dependencies', 'molecule-idempotence-notest']
