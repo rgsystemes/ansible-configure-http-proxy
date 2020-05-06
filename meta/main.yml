@@ -3,7 +3,7 @@ galaxy_info:
   author: Frank Fidanza <frank.fidanza@rgsystem.com>
   company: RG System
   description: Configures HTTP_PROXY on remote hosts for several tools
-  min_ansible_version: 2.7
+  min_ansible_version: 2.8
   license: MIT
   # Optionally specify the branch Galaxy will use when accessing the GitHub
   # repo for this role. During role install, if no tags are available,
@@ -12,6 +12,7 @@ galaxy_info:
   # branch will be accepted. Otherwise, in all cases, the repo's default branch
   # (usually master) will be used.
   github_branch: master
+
   #
   # Below are all platforms currently available. Just uncomment
   # the ones that apply to your role. If you don't see your
@@ -20,11 +21,12 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - all
+        - focal
+        - bionic
 
     - name: Debian
       versions:
-        - all
+        - buster
 
   # List tags for your role here, one per line. A tag is
   # a keyword that describes and categorizes the role.
@@ -36,6 +38,12 @@ galaxy_info:
   galaxy_tags:
     - system
     - proxy
+    - git
+    - docker
+    - npm
+    - security
+    - firewall
+    - squid
 
 # List your role dependencies here, one per line. Only
 # dependencies available via galaxy should be listed here.
