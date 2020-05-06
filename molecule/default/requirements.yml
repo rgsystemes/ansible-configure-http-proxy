@@ -1,8 +1,4 @@
 ---
-- src: https://github.com/geerlingguy/ansible-role-docker
-  name: geerlingguy.docker
-  version: 2.6.1
-
 - src: https://github.com/geerlingguy/ansible-role-nodejs
   name: geerlingguy.nodejs
   version: 5.1.1
