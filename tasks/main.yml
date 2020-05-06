@@ -1,7 +1,7 @@
 ---
 - name: Get the package facts
   package_facts:
-    manager: apt
+    manager: auto
 
 - name: Update facts
   set_fact:
