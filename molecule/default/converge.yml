@@ -17,6 +17,7 @@
       apt:
         name: python3-apt
         state: present
+        update_cache: yes # ensure apt cache is up-to-date before nodejs role attempts to install additionnal packages such as gnupg2
 
   roles:
     - name: "{{ TRAVIS_PATH if TRAVIS_PATH else VAGRANT_PATH }}"
