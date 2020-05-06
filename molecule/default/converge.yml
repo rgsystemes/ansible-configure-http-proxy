@@ -1,12 +1,34 @@
 ---
 - name: Converge
-  hosts: all
+  hosts: instance
   gather_facts: yes
   remote_user: root
 
   vars:
     TRAVIS_PATH: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}"
     VAGRANT_PATH: "{{ lookup('env', 'HOME') }}/ansible-configure-http-proxy"
+    proxy_ip: proxy
+    proxy_port: 3128
+
+  # For Debian-based systems python-apt package must be installed on targeted hosts.
+  # https://docs.ansible.com/ansible/latest/modules/package_facts_module.html
+  pre_tasks:
+    - name: Install python apt
+      apt:
+        name: python3-apt
+        state: present
 
   roles:
     - name: "{{ TRAVIS_PATH if TRAVIS_PATH else VAGRANT_PATH }}"
+      tags: apt
+    - name: geerlingguy.nodejs
+      tags: npm
+      vars: 
+        nodejs_version: "10.x"
+        npm_config_prefix: "/usr/local/lib/npm"
+        npm_config_unsafe_perm: "true"
+        nodejs_npm_global_packages: 
+          - node-sass
+          - jslint
+    - name: "{{ TRAVIS_PATH if TRAVIS_PATH else VAGRANT_PATH }}"
+      tags: npm
