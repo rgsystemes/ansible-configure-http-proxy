@@ -16,6 +16,7 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     pre_build_image: true
+    networks_cli_compatible: yes
     purge_networks: yes
     networks:
       - name: proxy_network
@@ -30,6 +31,8 @@ platforms:
       - ${MOLECULE_SCENARIO_DIRECTORY}/resources/:/etc/squid/
     privileged: true
     pre_build_image: true
+    networks_cli_compatible: yes
+    purge_networks: yes
     networks:
       - name: proxy_network
         ipv4_address: 172.10.0.3
