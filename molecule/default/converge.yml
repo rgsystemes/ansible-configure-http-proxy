@@ -1,0 +1,60 @@
+---
+- name: Converge
+  hosts: instance
+  gather_facts: yes
+  remote_user: root
+
+  vars:
+    TRAVIS_PATH: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}"
+    VAGRANT_PATH: "{{ lookup('env', 'HOME') }}/ansible-configure-http-proxy"
+    proxy_ip: proxy
+    proxy_port: 3128
+
+    proxy_env:
+      HTTP_PROXY: http://{{ proxy_ip }}:{{ proxy_port }}
+      HTTPS_PROXY: https://{{ proxy_ip }}:{{ proxy_port }}
+
+  environment: "{{ proxy_env }}"
+
+  pre_tasks:
+    - name: Debug
+      debug:
+        msg: {
+          "ansible_env": "{{ ansible_env }}"
+        }
+        verbosity: 1
+
+    # For Debian-based systems python-apt package must be installed on targeted hosts.
+    # https://docs.ansible.com/ansible/latest/modules/package_facts_module.html
+    - name: Install python dependencies
+      apt:
+        name: 
+          - python3-apt
+          - python-setuptools
+        state: present
+        update_cache: yes # ensure apt cache is up-to-date before nodejs role attempts to install additionnal packages such as gnupg2
+
+    - name: Install pip via apt # geerlingguy.pip doesnt work yet with ubuntu2004
+      block:
+        - name: Install python-pip for Buster, Bionic
+          apt:
+            name: python3-pip
+            state: present
+          when: ansible_distribution_release in ['buster', 'bionic']
+
+        - name: Install python-pip for Focal
+          apt:
+            name: python-pip-whl
+            state: present
+          when: ansible_distribution_release == 'focal'
+
+  roles:
+    - name: geerlingguy.nodejs
+      vars: 
+        nodejs_version: "10.x"
+        npm_config_prefix: "/usr/local/lib/npm"
+        npm_config_unsafe_perm: "true"
+      tags: ['dependencies', 'molecule-idempotence-notest']
+    - role: geerlingguy.git
+      tags: ['dependencies', 'molecule-idempotence-notest']
+    - name: "{{ TRAVIS_PATH if TRAVIS_PATH else VAGRANT_PATH }}" # finally invoke role

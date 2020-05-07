@@ -1,0 +1,67 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+platforms:
+  - name: instance
+    output_log: true
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-debian10}-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    privileged: true
+    pre_build_image: true
+    networks_cli_compatible: yes
+    purge_networks: yes
+    networks:
+      - name: proxy_network
+        ipv4_address: 172.10.0.2
+  - name: proxy
+    output_log: true
+    image: sameersbn/squid:3.5.27-2
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - /var/log/squid/:/var/log/squid/:rw
+      - ${MOLECULE_SCENARIO_DIRECTORY}/resources/:/etc/squid/
+    privileged: true
+    pre_build_image: true
+    networks_cli_compatible: yes
+    purge_networks: yes
+    networks:
+      - name: proxy_network
+        ipv4_address: 172.10.0.3
+    published_ports: 
+      - 3128:3128
+provisioner:
+  name: ansible
+  log: true
+  playbooks:
+    prepare: prepare.yml
+    converge: converge.yml
+verifier:
+  name: ansible
+scenario:
+  create_sequence:
+    - dependency
+    - prepare
+    - create
+  test_sequence:
+    - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - prepare
+    - create
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy

@@ -1,0 +1,56 @@
+---
+- name: Verify
+  hosts: instance
+  gather_facts: no
+
+  vars:
+    proxy_env:
+      HTTP_PROXY: http://proxy:3128
+      HTTPS_PROXY: https://proxy:3128
+
+  environment: "{{ proxy_env }}"
+
+  tasks:
+    - name: curl with proxy
+      uri:
+        url: https://github.com
+        method: GET
+        return_content: yes
+      register: curl_output
+
+    - name: Ensure curl returned ok
+      assert:
+        that: curl_output.status == 200
+
+    - name: Run the equivalent of "apt-get update"
+      apt:
+        update_cache: yes
+
+    - name: Ensure npm proxy config exists
+      block:
+        - name: Check for npm config
+          stat:
+            path: /root/.npmrc
+          register: npmrc_output
+
+        - name: Ensure file is present 
+          assert:
+            that: npmrc_output.stat.exists
+    
+    - name: Update npm using npm
+      npm:
+        name: npm
+        global: yes
+        state: latest # noqa 403
+    
+    - name: Git clone using HTTPS protocol
+      git:
+        repo: https://github.com/ansible/awx.git
+        dest: /opt/awx
+        version: 11.2.0
+
+    - name: Update pip using pip
+      pip:
+        name: pip
+        state: latest # noqa 403
+        executable: /usr/bin/pip3
