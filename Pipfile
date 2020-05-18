@@ -12,6 +12,3 @@ yamllint = "*"
 docker = "*"
 molecule = "==3.0.2"
 python-vagrant = "*"
-
-[requires]
-python_version = "3.6"
