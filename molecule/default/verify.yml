@@ -54,3 +54,9 @@
         name: pip
         state: latest # noqa 403
         executable: /usr/bin/pip3
+
+    - name: Update PECL channel
+      shell: pecl channel-update pecl.php.net
+      args:
+        executable: /bin/bash
+        warn: no
