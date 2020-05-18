@@ -21,7 +21,7 @@ cache:
 install:
   - curl -skL https://bootstrap.pypa.io/get-pip.py | sudo -H python3
   - sudo -H pip3 install pipenv
-  - sudo -H pipenv install --three
+  - sudo -H pipenv install
 
 script:
   - sudo -E pipenv run molecule test
