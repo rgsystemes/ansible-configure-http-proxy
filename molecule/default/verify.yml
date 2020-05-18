@@ -62,3 +62,16 @@
       args:
         executable: /bin/bash
         warn: no
+
+    - name: Check squid access logs
+      lineinfile: 
+        path: /var/log/squid/access.log 
+        line: "{{ item }}"
+        state: present
+      become: yes
+      loop: 
+        - github
+        - pecl
+        - npmjs
+        - pypi.org
+      delegate_to: 127.0.0.1
