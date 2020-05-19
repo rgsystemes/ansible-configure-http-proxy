@@ -1,0 +1,9 @@
+---
+- name: Configure PECL with proxy
+  shell: "pear config-set http_proxy {{ proxy_url }}"
+  args:
+    executable: /bin/bash
+    warn: no
+  become_user: "{{ item }}"
+  with_items: "{{ pecl_users }}"
+  tags: ['molecule-idempotence-notest']

@@ -48,6 +48,13 @@
             state: present
           when: ansible_distribution_release == 'focal'
 
+    - name: Install php-pear for testing purposes
+      apt:
+        name:
+          - php-cli
+          - php-pear
+        state: present
+
   roles:
     - name: geerlingguy.nodejs
       vars: 

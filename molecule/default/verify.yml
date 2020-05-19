@@ -41,8 +41,9 @@
       npm:
         name: npm
         global: yes
-        state: latest # noqa 403
-    
+        state: latest
+      tags: ['skip_ansible_lint']
+
     - name: Git clone using HTTPS protocol
       git:
         repo: https://github.com/ansible/awx.git
@@ -52,5 +53,25 @@
     - name: Update pip using pip
       pip:
         name: pip
-        state: latest # noqa 403
+        state: latest
         executable: /usr/bin/pip3
+      tags: ['skip_ansible_lint']
+
+    - name: Update PECL channel
+      shell: pecl channel-update pecl.php.net
+      args:
+        executable: /bin/bash
+        warn: no
+
+    - name: Check squid access logs
+      lineinfile: 
+        path: /var/log/squid/access.log 
+        line: "{{ item }}"
+        state: present
+      become: yes
+      loop: 
+        - github
+        - pecl
+        - npmjs
+        - pypi.org
+      delegate_to: 127.0.0.1
