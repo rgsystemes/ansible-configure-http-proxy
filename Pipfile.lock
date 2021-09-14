@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ec23472a6723915721e63832177cd7963e3919ff68bdb2a051816cb288d6a39f"
+            "sha256": "86f17406d7c02a570ca9523d8ba21997fd35b4bfda353e547f52ef004cac0384"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -27,6 +27,14 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
             "version": "==2.10.14"
+        },
+        "ansible-compat": {
+            "hashes": [
+                "sha256:0730fbbb32710d19f4244a4cabad9c6b33b4b92ddf72aee353484e17543405f5",
+                "sha256:3a696842689e108a827d3b60a1c32d53a546c94fe4fb244166259cbc25268c28"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==0.5.0"
         },
         "ansible-lint": {
             "hashes": [
@@ -74,10 +82,10 @@
         },
         "cerberus": {
             "hashes": [
-                "sha256:d1b21b3954b2498d9a79edf16b3170a3ac1021df88d197dc2ce5928ba519237c"
+                "sha256:302e6694f206dd85cb63f13fd5025b31ab6d38c99c50c6d769f8fa0b0f299589"
             ],
             "markers": "python_version >= '2.7'",
-            "version": "==1.3.4"
+            "version": "==1.3.2"
         },
         "certifi": {
             "hashes": [
@@ -159,12 +167,6 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==8.0.1"
-        },
-        "click-completion": {
-            "hashes": [
-                "sha256:5bf816b81367e638a190b6e91b50779007d14301b3f9f3145d68e3cade7bce86"
-            ],
-            "version": "==0.5.2"
         },
         "click-help-colors": {
             "hashes": [
@@ -327,11 +329,19 @@
         },
         "molecule": {
             "hashes": [
-                "sha256:4e6198a00cce070438dc64037a9df6c6590161c6dc9c8142bb956064a29fb1d0",
-                "sha256:dd6e23b0f3a39e9fabe6913b3149619f118f7135b05413966dd6f5c53e1efee3"
+                "sha256:6aa2d659189908469c52b1eb5b3a88c1125f23448e23e27c227c5ec9d9063aa9",
+                "sha256:e9845e2e98a992a7d2e144c1148c6e7b7663ca3f8060ef0c01a373eda03abd9d"
             ],
             "index": "pypi",
-            "version": "==3.2.0"
+            "version": "==3.4.0"
+        },
+        "molecule-docker": {
+            "hashes": [
+                "sha256:a16f3bb734eb1d5ec28fa3bb678854bda7cb142968467fc8f4f31a518cd4555f",
+                "sha256:b30000fca4658c71c4e6e938411e57c1dd0ea21add843351af7529016b786144"
+            ],
+            "index": "pypi",
+            "version": "==1.0.2"
         },
         "packaging": {
             "hashes": [
@@ -490,7 +500,7 @@
                 "sha256:2c84d9b3459c16bf413fe0f9644c7ae1791971e0bb944dfae56e7c7634b187ab",
                 "sha256:ba285f1c519519490034284e6a9d2e6e3f16dc7690f2de3d9140737d81304d22"
             ],
-            "markers": "python_version >= '3.6' and python_version < '4.0'",
+            "markers": "python_version >= '3.6' and python_version < '4'",
             "version": "==10.9.0"
         },
         "ruamel.yaml": {
@@ -533,16 +543,8 @@
                 "sha256:820adcf1b4451c9cc7759848797703263ba0eb6a4cad76d73548a9e0d57b7926",
                 "sha256:d435f514e834e3fdc0941f6a29d086b80b2ea51b28112aee6254bd104ee42a74"
             ],
-            "markers": "sys_platform == 'linux'",
+            "markers": "sys_platform == 'linux' and sys_platform == 'linux'",
             "version": "==0.2.1"
-        },
-        "shellingham": {
-            "hashes": [
-                "sha256:4855c2458d6904829bd34c299f11fdeed7cfefbf8a2c522e4caea6cd76b3171e",
-                "sha256:536b67a0697f2e4af32ab176c00a50ac2899c5a05e0d8e2dadac8e58888283f9"
-            ],
-            "markers": "python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2, 3.3'",
-            "version": "==1.4.0"
         },
         "six": {
             "hashes": [
@@ -580,7 +582,7 @@
                 "sha256:39fb8672126159acb139a7718dd10806104dec1e2f0f6c88aab05d17df10c8d4",
                 "sha256:f57b4c16c62fa2760b7e3d97c35b255512fb6b59a259730f36ba32ce9f8e342f"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
             "version": "==1.26.6"
         },
         "wcmatch": {
