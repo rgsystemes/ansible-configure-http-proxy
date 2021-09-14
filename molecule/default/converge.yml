@@ -58,7 +58,6 @@
   roles:
     - name: geerlingguy.nodejs
       vars: 
-        nodejs_version: "10.x"
         npm_config_prefix: "/usr/local/lib/npm"
         npm_config_unsafe_perm: "true"
       tags: ['dependencies', 'molecule-idempotence-notest']
