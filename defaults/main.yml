@@ -12,7 +12,7 @@ proxy_configure_apt: yes
 proxy_npm_users:
   - root
 # User list for pecl config-set cmd
-pecl_users:
+proxy_pecl_users:
   - root
 # User list for ~/.gitconfig
 proxy_git_users:
