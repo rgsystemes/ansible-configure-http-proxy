@@ -2,10 +2,12 @@
 - name: Get the package facts
   package_facts:
     manager: auto
+  tags: ['always']
 
 - name: Update facts
   set_fact:
     apt_packages: "{{ ansible_facts.packages | flatten }}"
+  tags: ['always']
 
 - name: Compute proxy_url if credentials are set
   set_fact:
@@ -14,6 +16,7 @@
         proxy_username and
         proxy_password is defined and
         proxy_password
+  tags: ['always']
 
 - name: Configure APT
   import_tasks: _apt.yml

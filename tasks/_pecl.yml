@@ -5,5 +5,5 @@
     executable: /bin/bash
     warn: no
   become_user: "{{ item }}"
-  with_items: "{{ pecl_users }}"
+  loop: "{{ proxy_pecl_users }}"
   tags: ['molecule-idempotence-notest']

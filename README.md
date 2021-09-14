@@ -44,7 +44,7 @@ Then you install via the following command (from your project's directory) :
 
 ## Requirements
 
-- Ansible >= 2.8
+- Ansible >= 2.10
 
 ## Role Variables
 
@@ -52,18 +52,20 @@ Then you install via the following command (from your project's directory) :
 ---
 proxy_ip: 127.0.0.1
 proxy_port: 8080
-proxy_url: "http://{{ proxy_ip }}:{{ proxy_port }}"
 proxy_username: '' # if both username and password are set, the generated proxy_url variable will include them as follows : http://user:pass@host:port
 proxy_password: ''
+proxy_ignore: [] # Proxy whitelist : array of values such as ['localhost', '192.168.0.0/16']
+proxy_url: "http://{{ proxy_ip }}:{{ proxy_port }}"
 proxy_configure_apt: yes # set to no if you wish apt not to be configured by the role
-npm_users: # since proxy configuration is set in a per-user file (~/.npmrc), the task needs to run for a list of users running npm commands on the host
+proxy_npm_users: # since proxy configuration is set in a per-user file (~/.npmrc), the task needs to run for a list of users running npm commands on the host
   - root
-git_users: # same as npm but lies in ~/.gitconfig
+proxy_git_users: # same as npm but lies in ~/.gitconfig
   - root
-docker_users: # same as npm but lies in ~/.docker/config.json. File permissions must be set as it uses the template module
+proxy_docker_users: # same as npm but lies in ~/.docker/config.json. File permissions must be set as it uses the template module
   - username: root
     group: root
-no_proxy: [] # Proxy whitelist : array of values such as ['localhost', '192.168.0.0/16']
+proxy_docker_update_systemd: yes # update docker's systemd unit with env variables
+proxy_docker_restart_on_change: yes # allows docker daemon to be restarted
 ```
 
 ## Troubleshooting
@@ -85,10 +87,10 @@ The tasks related to Docker require to write files in /tmp although looping over
       vars:
         proxy_ip: 10.0.0.1
         proxy_port: 3128
-        npm_users:
+        proxy_npm_users:
           - root
           - web
-        docker_users:
+        proxy_docker_users:
           - username: root
             group: root
           - username: web

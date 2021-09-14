@@ -4,5 +4,5 @@
     npm config set proxy {{ proxy_url }}
     npm config set https-proxy {{ proxy_url }}
   become_user: "{{ item }}"
-  with_items: "{{ npm_users }}"
+  loop: "{{ proxy_npm_users }}"
   tags: ['molecule-idempotence-notest']

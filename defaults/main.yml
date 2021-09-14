@@ -1,17 +1,26 @@
 ---
+# General proxy settings
 proxy_ip: 127.0.0.1
 proxy_port: 8080
-proxy_url: "http://{{ proxy_ip }}:{{ proxy_port }}"
 proxy_username: ''
 proxy_password: ''
+proxy_ignore: []
+proxy_url: "http://{{ proxy_ip }}:{{ proxy_port }}"
+# Setup apt
 proxy_configure_apt: yes
-npm_users:
+# User list for ~/.npmrc file
+proxy_npm_users:
   - root
-pecl_users:
+# User list for pecl config-set cmd
+proxy_pecl_users:
   - root
-git_users:
+# User list for ~/.gitconfig
+proxy_git_users:
   - root
-docker_users: 
+# Docker-related settings
+# User list for ~/.docker 
+proxy_docker_users: 
   - username: root
     group: root
-no_proxy: []
+proxy_docker_update_systemd: yes
+proxy_docker_restart_on_change: yes

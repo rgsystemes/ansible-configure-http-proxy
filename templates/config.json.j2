@@ -5,7 +5,7 @@
    {
      "httpProxy": "{{ proxy_url }}",
      "httpsProxy": "{{ proxy_url }}",
-     "noProxy": "{{ no_proxy | join(',') }}"
+     "noProxy": "{{ proxy_ignore | join(',') }}"
    }
  }
 }

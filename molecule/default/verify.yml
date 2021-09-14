@@ -2,16 +2,15 @@
 - name: Verify
   hosts: instance
   gather_facts: no
+  environment: "{{ proxy_env }}"
 
   vars:
     proxy_env:
       HTTP_PROXY: http://proxy:3128
       HTTPS_PROXY: https://proxy:3128
 
-  environment: "{{ proxy_env }}"
-
   tasks:
-    - name: curl with proxy
+    - name: Curl with proxy
       uri:
         url: https://github.com
         method: GET
@@ -37,24 +36,23 @@
           assert:
             that: npmrc_output.stat.exists
     
-    - name: Update npm using npm
+    - name: Update npm using npm itself
       npm:
         name: npm
         global: yes
         state: latest
       tags: ['skip_ansible_lint']
 
-    - name: Git clone using HTTPS protocol
+    - name: Run git clone using HTTPS protocol
       git:
         repo: https://github.com/ansible/awx.git
         dest: /opt/awx
-        version: 11.2.0
+        version: 19.3.0
 
-    - name: Update pip using pip
+    - name: Run pip install --upgrade
       pip:
         name: pip
         state: latest
-        executable: /usr/bin/pip3
       tags: ['skip_ansible_lint']
 
     - name: Update PECL channel

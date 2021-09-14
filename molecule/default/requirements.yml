@@ -1,8 +1,12 @@
 ---
 - src: https://github.com/geerlingguy/ansible-role-nodejs
   name: geerlingguy.nodejs
-  version: 5.1.1
+  version: 6.0.0
 
 - src: https://github.com/geerlingguy/ansible-role-git
   name: geerlingguy.git
   version: 3.0.0
+
+- src: https://github.com/geerlingguy/ansible-role-pip
+  name: geerlingguy.pip
+  version: 2.1.0
