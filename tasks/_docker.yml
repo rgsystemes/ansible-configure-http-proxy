@@ -6,7 +6,7 @@
     owner: "{{ item.username }}"
     group: "{{ item.group }}"
   become_user: "{{ item.username }}"
-  with_items: "{{ docker_users }}"
+  loop: "{{ proxy_docker_users }}"
 
 - name: Update ~/.docker/config.json
   template:
@@ -15,4 +15,20 @@
     owner: "{{ item.username }}"
     group: "{{ item.group }}"
   become_user: "{{ item.username }}"
-  with_items: "{{ docker_users }}"
+  loop: "{{ proxy_docker_users }}"
+
+- block:
+    - name: Create folder for systemd proxy config
+      file:
+        path: /etc/systemd/system/docker.service.d
+        state: directory
+
+    - name: Create http-proxy.conf
+      template:
+        src: http-proxy.conf.j2
+        dest: /etc/systemd/system/docker.service.d/http-proxy.conf
+        mode: 0644
+        owner: root
+        group: root
+      notify: restart docker
+  when: proxy_docker_update_systemd|bool
