@@ -1,8 +1,8 @@
 ---
-dist: bionic
+dist: focal
 language: python
 python:
-  - "3.7"
+  - "3.8"
 
 services: 
   - docker
@@ -18,8 +18,7 @@ cache:
     - /home/travis/.cache/pipenv
 
 install:
-  - sudo apt-get install python3.7
-  - curl -skL https://bootstrap.pypa.io/get-pip.py | sudo -H python3.7
+  - curl -skL https://bootstrap.pypa.io/get-pip.py | sudo -H python3.8
   - sudo -H pip3 install pipenv
   - sudo -H pipenv install
 
