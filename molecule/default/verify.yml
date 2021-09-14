@@ -51,11 +51,8 @@
 
     - name: Run pip install --upgrade
       pip:
-        name: 
-          - pip
-          - certbot
+        name: pip
         state: latest
-        executable: /usr/bin/pip3
       tags: ['skip_ansible_lint']
 
     - name: Update PECL channel
