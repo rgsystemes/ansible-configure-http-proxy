@@ -5,8 +5,8 @@
   remote_user: root
 
   vars:
-    TRAVIS_PATH: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}"
-    VAGRANT_PATH: "{{ lookup('env', 'HOME') }}/ansible-configure-http-proxy"
+    travis_path: "{{ lookup('env', 'TRAVIS_BUILD_DIR') }}"
+    vagrant_path: "{{ lookup('env', 'HOME') }}/ansible-configure-http-proxy"
     proxy_ip: proxy
     proxy_port: 3128
     proxy_env:
@@ -49,4 +49,4 @@
       tags: ['dependencies', 'molecule-idempotence-notest']
     - role: geerlingguy.pip
       tags: ['dependencies', 'molecule-idempotence-notest']
-    - name: "{{ TRAVIS_PATH if TRAVIS_PATH else VAGRANT_PATH }}" # finally invoke role
+    - name: "{{ travis_path if travis_path else vagrant_path }}" # finally invoke role

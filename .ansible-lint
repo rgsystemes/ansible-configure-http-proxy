@@ -1,3 +1,4 @@
+---
 # https://docs.ansible.com/ansible-lint/rules/default_rules.html
 use_default_rules: true
 skip_list:
