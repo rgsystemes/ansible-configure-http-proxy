@@ -5,4 +5,4 @@
     scope: global
     value: "{{ proxy_url }}"
   become_user: "{{ item }}"
-  with_items: "{{ git_users }}"
+  loop: "{{ proxy_git_users }}"
