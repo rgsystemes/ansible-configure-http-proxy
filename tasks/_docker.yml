@@ -24,7 +24,7 @@
       file:
         path: /etc/systemd/system/docker.service.d
         state: directory
-        user: root
+        owner: root
         group: root
         mode: 0744
 
