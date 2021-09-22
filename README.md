@@ -68,6 +68,7 @@ proxy_docker_users: # same as npm but lies in ~/.docker/config.json. File permis
     group: root
 proxy_docker_update_systemd: yes # update docker's systemd unit with env variables
 proxy_docker_restart_on_change: yes # allows docker daemon to be restarted
+
 ```
 
 ## Troubleshooting
