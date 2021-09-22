@@ -23,6 +23,11 @@
   when: proxy_configure_apt
   tags: ['apt']
   
+- name: Configure wget
+  import_tasks: _wget.yml
+  when: proxy_configure_wget
+  tags: ['wget']
+  
 - name: Configure Git
   import_tasks: _git.yml
   when: '"git" in apt_packages'

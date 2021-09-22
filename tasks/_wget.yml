@@ -1,0 +1,15 @@
+---
+- name: Configure wget
+  lineinfile:
+    dest: "{{ proxy_wgetrc_path }}"
+    regexp: "^#?{{ item.key }}"
+    backrefs: yes
+    line: "{{ item.key }} = {{ item.value }}"
+    state: present
+  loop:
+    - key: use_proxy
+      value: "yes"
+    - key: http_proxy
+      value: "{{ proxy_ip }}"
+    - key: https_proxy
+      value: "{{ proxy_port }}"
