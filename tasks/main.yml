@@ -25,7 +25,9 @@
   
 - name: Configure wget
   import_tasks: _wget.yml
-  when: proxy_configure_wget
+  when: 
+    - proxy_configure_wget
+    - '"wget" in apt_packages'
   tags: ['wget']
   
 - name: Configure Git
