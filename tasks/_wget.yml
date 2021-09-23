@@ -10,6 +10,6 @@
     - key: use_proxy
       value: "yes"
     - key: http_proxy
-      value: "{{ proxy_ip }}"
+      value: "{{ proxy_ip }}:{{ proxy_port }}"
     - key: https_proxy
-      value: "{{ proxy_port }}"
+      value: "{{ proxy_ip }}:{{ proxy_port }}"
