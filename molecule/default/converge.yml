@@ -39,6 +39,11 @@
           - php-pear
         state: present
 
+    - name: Ensure wget is present
+      apt:
+        name: wget
+        state: present
+      
   roles:
     - name: geerlingguy.nodejs
       vars: 

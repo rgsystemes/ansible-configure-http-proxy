@@ -8,6 +8,9 @@ proxy_ignore: []
 proxy_url: "http://{{ proxy_ip }}:{{ proxy_port }}"
 # Setup apt
 proxy_configure_apt: yes
+# Setup wget in /etc/wgetrc
+proxy_configure_wget: yes
+proxy_wgetrc_path: /etc/wgetrc
 # User list for ~/.npmrc file
 proxy_npm_users:
   - root

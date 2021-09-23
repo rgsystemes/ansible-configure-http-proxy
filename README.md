@@ -57,6 +57,8 @@ proxy_password: ''
 proxy_ignore: [] # Proxy whitelist : array of values such as ['localhost', '192.168.0.0/16']
 proxy_url: "http://{{ proxy_ip }}:{{ proxy_port }}"
 proxy_configure_apt: yes # set to no if you wish apt not to be configured by the role
+proxy_configure_wget: yes # set to no if you wish wget not to be configured by the role
+proxy_wgetrc_path: /etc/wgetrc
 proxy_npm_users: # since proxy configuration is set in a per-user file (~/.npmrc), the task needs to run for a list of users running npm commands on the host
   - root
 proxy_git_users: # same as npm but lies in ~/.gitconfig
@@ -66,6 +68,7 @@ proxy_docker_users: # same as npm but lies in ~/.docker/config.json. File permis
     group: root
 proxy_docker_update_systemd: yes # update docker's systemd unit with env variables
 proxy_docker_restart_on_change: yes # allows docker daemon to be restarted
+
 ```
 
 ## Troubleshooting
