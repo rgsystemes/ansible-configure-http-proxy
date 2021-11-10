@@ -1,0 +1,30 @@
+---
+- name: Prepare
+  hosts: instance
+  gather_facts: no
+  become: yes
+
+  pre_tasks:
+    - name: Gather facts for the first time
+      setup:
+
+    # For Debian-based systems python-apt package must be installed on targeted hosts.
+    # https://docs.ansible.com/ansible/latest/modules/package_facts_module.html
+    - name: Install python dependencies
+      apt:
+        name: 
+          - python3-apt
+          - python-setuptools
+        state: present
+        update_cache: yes # ensure apt cache is up-to-date before nodejs role attempts to install additionnal packages such as gnupg2
+        cache_valid_time: 600
+
+  roles:
+    - name: geerlingguy.nodejs
+      vars: 
+        nodejs_install_npm_user: root
+      tags: ['dependencies', 'molecule-idempotence-notest']
+    - role: geerlingguy.git
+      tags: ['dependencies', 'molecule-idempotence-notest']
+    - role: geerlingguy.pip
+      tags: ['dependencies', 'molecule-idempotence-notest']

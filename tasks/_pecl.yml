@@ -6,4 +6,4 @@
     warn: no
   become_user: "{{ item }}"
   loop: "{{ proxy_pecl_users }}"
-  tags: ['molecule-idempotence-notest']
+  tags: ['molecule-idempotence-notest', 'skip_ansible_lint']
