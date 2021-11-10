@@ -60,6 +60,7 @@
       args:
         executable: /bin/bash
         warn: no
+      tags: ['skip_ansible_lint']
 
     - name: Check squid access logs
       lineinfile: 

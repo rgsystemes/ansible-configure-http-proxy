@@ -1,6 +1,7 @@
 ---
 galaxy_info:
-  role_name: configure-http-proxy
+  namespace: rgsystem
+  role_name: configure_http_proxy
   author: Frank Fidanza <frank.fidanza@rgsystem.com>
   company: RG System
   description: Configures HTTP_PROXY on remote hosts for several tools
