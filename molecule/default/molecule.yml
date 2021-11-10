@@ -1,6 +1,8 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: ${MOLECULE_PROJECT_DIRECTORY}/molecule/default/requirements.yml
 driver:
   name: docker
 lint: |
@@ -18,6 +20,8 @@ platforms:
     pre_build_image: true
     networks_cli_compatible: yes
     purge_networks: yes
+    dns_servers:
+      - 1.1.1.1
     networks:
       - name: proxy_network
   - name: proxy
@@ -32,6 +36,8 @@ platforms:
     pre_build_image: true
     networks_cli_compatible: yes
     purge_networks: yes
+    dns_servers:
+      - 1.1.1.1
     networks:
       - name: proxy_network
     published_ports: 
@@ -39,7 +45,9 @@ platforms:
 provisioner:
   name: ansible
   log: true
-  playbooks:
-    converge: converge.yml
-verifier:
-  name: ansible
+  config_options:
+    defaults:
+      callback_whitelist: "profile_tasks,timer"
+      allow_world_readable_tmpfiles: true
+      interpreter_python: /usr/bin/python3
+      pipelining: true
