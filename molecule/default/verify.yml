@@ -4,11 +4,6 @@
   gather_facts: no
   environment: "{{ proxy_env }}"
 
-  vars:
-    proxy_env:
-      HTTP_PROXY: http://proxy:3128
-      HTTPS_PROXY: https://proxy:3128
-
   tasks:
     - name: Curl with proxy
       uri:
