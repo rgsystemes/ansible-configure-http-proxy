@@ -10,19 +10,8 @@
       debug:
         msg:
           "ansible_env": "{{ ansible_env }}"
+          "proxy_env": "{{ proxy_env }}"
         verbosity: 1
 
-    - name: Install php-pear for testing purposes
-      apt:
-        name:
-          - php-cli
-          - php-pear
-        state: present
-
-    - name: Ensure wget is present
-      apt:
-        name: wget
-        state: present
-      
   roles:
     - name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}" # finally invoke role

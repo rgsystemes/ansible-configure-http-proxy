@@ -23,8 +23,15 @@
     - name: geerlingguy.nodejs
       vars: 
         nodejs_install_npm_user: root
-      tags: ['dependencies', 'molecule-idempotence-notest']
-    - role: geerlingguy.git
-      tags: ['dependencies', 'molecule-idempotence-notest']
-    - role: geerlingguy.pip
-      tags: ['dependencies', 'molecule-idempotence-notest']
+    - name: geerlingguy.git
+    - name: geerlingguy.pip
+
+  tasks: 
+    - name: Install test dependencies
+      apt:
+        name: 
+          - curl
+          - wget
+          - php-dev
+          - php-pear
+        state: latest
