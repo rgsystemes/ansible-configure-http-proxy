@@ -44,6 +44,8 @@ platforms:
       - 3128:3128
 provisioner:
   name: ansible
+  options:
+    vvv: true
   log: true
   config_options:
     defaults:
