@@ -4,10 +4,10 @@ exclude_paths:
   - ../.ansible/roles/
   - .cache/
   - .github/
+  - ./molecule/default/prepare.yml
 verbosity: 1
 use_default_rules: true
 skip_list: 
-  - role-name
   - no-changed-when
 warn_list:
   - no-log-password
