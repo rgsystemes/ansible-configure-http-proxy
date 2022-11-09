@@ -1,0 +1,39 @@
+---
+name: Build
+on:
+  pull_request:
+    branches:
+      - '*'
+  push:
+    branches:
+      - master
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Prepare
+        shell: bash
+        run: |
+          python --version
+          sudo -H pip install --upgrade pip pipenv
+      - uses: actions/cache@v3
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+      - name: Install dependencies
+        shell: bash
+        run: |
+          pipenv install
+      - name: Run version check
+        shell: bash
+        run: |
+          pipenv run molecule --version
+      - name: Run tests 
+        shell: bash
+        run: |
+          pipenv run molecule test
