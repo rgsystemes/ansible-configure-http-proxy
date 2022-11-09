@@ -74,9 +74,9 @@
         warn: no
       become: yes
       loop: 
-        - github
-        - pecl
-        - npmjs
+        - github.com
+        - pecl.php.net
+        - registry.npmjs.org
         - pypi.org
         - get.docker.com
       delegate_to: 127.0.0.1 # Inspect local copy of access.log accesible via bind-mount volume
