@@ -5,16 +5,27 @@
   environment: "{{ proxy_env }}"
 
   tasks:
-    - name: Curl with proxy
-      uri:
-        url: https://github.com
-        method: GET
-        return_content: yes
+    - name: Ensure curl proxy config exists
+      block:
+        - name: Check for .curlrc config
+          stat:
+            path: /root/.curlrc
+          register: curlrc_output
+
+        - name: Ensure file is present 
+          assert:
+            that: curlrc_output.stat.exists
+
+    - name: Run curl
+      shell:
+        cmd: curl -fsSL https://get.docker.com -o /tmp/get-docker.sh
+        executable: /bin/bash
+        warn: no
       register: curl_output
 
     - name: Ensure curl returned ok
       assert:
-        that: curl_output.status == 200
+        that: curl_output.rc == 0
 
     - name: Run the equivalent of "apt-get update"
       apt:
@@ -30,7 +41,7 @@
         - name: Ensure file is present 
           assert:
             that: npmrc_output.stat.exists
-    
+
     - name: Update npm using npm itself
       npm:
         name: npm
@@ -48,24 +59,23 @@
       pip:
         name: pip
         state: latest
-      tags: ['skip_ansible_lint']
 
     - name: Update PECL channel
-      shell: pecl channel-update pecl.php.net
-      args:
+      shell: 
+        cmd: pecl channel-update pecl.php.net
         executable: /bin/bash
         warn: no
-      tags: ['skip_ansible_lint']
 
     - name: Check squid access logs
-      lineinfile: 
-        path: /var/log/squid/access.log 
-        line: "{{ item }}"
-        state: present
+      shell: 
+        cmd: grep -q '{{ item }}' /var/log/squid/access.log
+        executable: /bin/bash
+        warn: no
       become: yes
       loop: 
         - github
         - pecl
         - npmjs
         - pypi.org
-      delegate_to: 127.0.0.1
+        - get.docker.com
+      delegate_to: 127.0.0.1 # Inspect local copy of access.log accesible via bind-mount volume

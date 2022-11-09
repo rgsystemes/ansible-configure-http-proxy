@@ -11,6 +11,9 @@ proxy_configure_apt: yes
 # Setup wget in /etc/wgetrc
 proxy_configure_wget: yes
 proxy_wgetrc_path: /etc/wgetrc
+# Setup curl in $HOME/.curlrc
+# https://everything.curl.dev/cmdline/configfile#default-config-file
+proxy_configure_curl: yes
 # User list for ~/.npmrc file
 proxy_npm_users:
   - root

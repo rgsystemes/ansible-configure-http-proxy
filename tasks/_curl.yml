@@ -1,0 +1,21 @@
+---
+- name: Get current user's home directory
+  shell:
+    executable: /bin/bash
+    cmd: echo $HOME
+  register: home_output
+
+- name: Set proxy_curl path
+  set_fact:
+    proxy_curl_path: "{{ home_output.stdout }}/.curlrc"
+
+- name: Configure curl
+  lineinfile:
+    path: "{{ proxy_curl_path }}"
+    line: "{{ item.key }} = {{ item.value }}"
+    create: yes
+    regexp: "^#?{{ item.key }}"
+    state: present
+  loop:
+    - key: proxy
+      value: "{{ proxy_url }}"
