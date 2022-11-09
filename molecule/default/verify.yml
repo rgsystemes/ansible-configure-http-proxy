@@ -30,6 +30,7 @@
     - name: Run the equivalent of "apt-get update"
       apt:
         update_cache: yes
+        force_apt_get: yes
 
     - name: Ensure npm proxy config exists
       block:
