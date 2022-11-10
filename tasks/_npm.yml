@@ -1,6 +1,6 @@
 ---
 - name: Update ~/.npmrc 
-  shell: |
+  ansible.builtin.shell: |
     npm config set proxy {{ proxy_url }}
     npm config set https-proxy {{ proxy_url }}
   become_user: "{{ item }}"

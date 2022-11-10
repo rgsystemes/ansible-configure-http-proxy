@@ -1,7 +1,7 @@
 ---
 - name: Configure PECL with proxy
-  shell: "pear config-set http_proxy {{ proxy_url }}"
-  args:
+  ansible.builtin.shell: 
+    cmd: "pear config-set http_proxy {{ proxy_url }}"
     executable: /bin/bash
     warn: no
   become_user: "{{ item }}"

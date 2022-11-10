@@ -11,7 +11,7 @@
     # For Debian-based systems python-apt package must be installed on targeted hosts.
     # https://docs.ansible.com/ansible/latest/modules/package_facts_module.html
     - name: Install python dependencies
-      apt:
+      ansible.builtin.apt:
         name: 
           - python3-apt
           - python-setuptools
@@ -28,7 +28,7 @@
 
   tasks: 
     - name: Install test dependencies
-      apt:
+      ansible.builtin.apt:
         name: 
           - curl
           - wget

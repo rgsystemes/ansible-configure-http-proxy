@@ -8,39 +8,39 @@
     - name: Ensure curl proxy config exists
       block:
         - name: Check for .curlrc config
-          stat:
+          ansible.builtin.stat:
             path: /root/.curlrc
           register: curlrc_output
 
         - name: Ensure file is present 
-          assert:
+          ansible.builtin.assert:
             that: curlrc_output.stat.exists
 
     - name: Run curl
-      shell:
+      ansible.builtin.shell:
         cmd: curl -fsSL https://get.docker.com -o /tmp/get-docker.sh
         executable: /bin/bash
         warn: no
       register: curl_output
 
     - name: Ensure curl returned ok
-      assert:
+      ansible.builtin.assert:
         that: curl_output.rc == 0
 
     - name: Run the equivalent of "apt-get update"
-      apt:
+      ansible.builtin.apt:
         update_cache: yes
         force_apt_get: yes
 
     - name: Ensure npm proxy config exists
       block:
         - name: Check for npm config
-          stat:
+          ansible.builtin.stat:
             path: /root/.npmrc
           register: npmrc_output
 
         - name: Ensure file is present 
-          assert:
+          ansible.builtin.assert:
             that: npmrc_output.stat.exists
 
     - name: Update npm using npm itself
@@ -51,24 +51,25 @@
       tags: ['skip_ansible_lint']
 
     - name: Run git clone using HTTPS protocol
-      git:
+      ansible.builtin.git:
         repo: https://github.com/ansible/awx.git
         dest: /opt/awx
         version: 19.3.0
 
     - name: Run pip install --upgrade
-      pip:
+      ansible.builtin.pip:
         name: pip
         state: latest
+      tags: ['skip_ansible_lint']
 
     - name: Update PECL channel
-      shell: 
+      ansible.builtin.shell: 
         cmd: pecl channel-update pecl.php.net
         executable: /bin/bash
         warn: no
 
     - name: Check squid access logs
-      shell: 
+      ansible.builtin.shell: 
         cmd: grep -q '{{ item }}' /var/log/squid/access.log
         executable: /bin/bash
         warn: no

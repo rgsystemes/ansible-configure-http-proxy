@@ -7,7 +7,7 @@
 
   pre_tasks:
     - name: Debug environment variables
-      debug:
+      ansible.builtin.debug:
         msg:
           "ansible_env": "{{ ansible_env }}"
           "proxy_env": "{{ proxy_env }}"

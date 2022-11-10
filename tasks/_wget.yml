@@ -1,6 +1,6 @@
 ---
 - name: Configure wget
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "{{ proxy_wgetrc_path }}"
     regexp: "^#?{{ item.key }}"
     backrefs: yes
