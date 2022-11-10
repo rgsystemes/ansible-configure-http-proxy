@@ -1,10 +1,21 @@
 ---
 - name: Verify
   hosts: instance
-  gather_facts: no
+  gather_facts: yes
   environment: "{{ proxy_env }}"
 
   tasks:
+    - name: Ensure apt proxy config exists
+      block:
+        - name: Check for proxy.conf
+          ansible.builtin.stat:
+            path: /etc/apt/apt.conf.d/proxy.conf
+          register: apt_output
+
+        - name: Ensure file is present 
+          ansible.builtin.assert:
+            that: apt_output.stat.exists
+
     - name: Ensure curl proxy config exists
       block:
         - name: Check for .curlrc config
@@ -26,6 +37,17 @@
     - name: Ensure curl returned ok
       ansible.builtin.assert:
         that: curl_output.rc == 0
+
+    - name: Run wget
+      ansible.builtin.shell:
+        cmd: wget https://get.docker.com -O /tmp/get-docker.sh
+        executable: /bin/bash
+        warn: no
+      register: wget_output
+
+    - name: Ensure wget returned ok
+      ansible.builtin.assert:
+        that: wget_output.rc == 0
 
     - name: Run the equivalent of "apt-get update"
       ansible.builtin.apt:
@@ -56,12 +78,6 @@
         dest: /opt/awx
         version: 19.3.0
 
-    - name: Run pip install --upgrade
-      ansible.builtin.pip:
-        name: pip
-        state: latest
-      tags: ['skip_ansible_lint']
-
     - name: Update PECL channel
       ansible.builtin.shell: 
         cmd: pecl channel-update pecl.php.net
@@ -75,9 +91,9 @@
         warn: no
       become: yes
       loop: 
-        - github.com
-        - pecl.php.net
-        - registry.npmjs.org
-        - pypi.org
         - get.docker.com
+        - "{{ ansible_distribution_release }}"
+        - github.com
+        - registry.npmjs.org
+        - pecl.php.net
       delegate_to: 127.0.0.1 # Inspect local copy of access.log accesible via bind-mount volume

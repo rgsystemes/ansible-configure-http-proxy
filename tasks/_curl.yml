@@ -4,6 +4,7 @@
     executable: /bin/bash
     cmd: echo $HOME
   register: home_output
+  changed_when: false
 
 - name: Set proxy_curl path
   ansible.builtin.set_fact:
