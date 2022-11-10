@@ -14,4 +14,4 @@
         verbosity: 1
 
   roles:
-    - name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}" # finally invoke role
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}"
