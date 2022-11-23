@@ -1,5 +1,7 @@
 # Ansible Role: Configure HTTP Proxy
 
+[![Build](https://github.com/rgsystemes/ansible-configure-http-proxy/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/rgsystemes/ansible-configure-http-proxy/actions/workflows/build.yml)
+
 This role configures http_proxy for the apt package manager and other tools (currently wget, curl, git, npm, pip, pecl and docker-ce), that do not rely on the env. variable HTTP_PROXY.
 The tools are being configured if detected amongst installed packages.
 
