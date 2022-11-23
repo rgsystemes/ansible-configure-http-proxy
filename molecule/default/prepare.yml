@@ -11,7 +11,7 @@
     # For Debian-based systems python-apt package must be installed on targeted hosts.
     # https://docs.ansible.com/ansible/latest/modules/package_facts_module.html
     - name: Install python dependencies
-      apt:
+      ansible.builtin.apt:
         name: 
           - python3-apt
           - python-setuptools
@@ -20,11 +20,18 @@
         cache_valid_time: 600
 
   roles:
-    - name: geerlingguy.nodejs
+    - role: geerlingguy.nodejs
       vars: 
         nodejs_install_npm_user: root
-      tags: ['dependencies', 'molecule-idempotence-notest']
     - role: geerlingguy.git
-      tags: ['dependencies', 'molecule-idempotence-notest']
     - role: geerlingguy.pip
-      tags: ['dependencies', 'molecule-idempotence-notest']
+
+  tasks: 
+    - name: Install test dependencies
+      ansible.builtin.apt:
+        name: 
+          - curl
+          - wget
+          - php-dev
+          - php-pear
+        state: latest

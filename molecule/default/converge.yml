@@ -3,34 +3,15 @@
   hosts: instance
   gather_facts: yes
   remote_user: root
-
-  vars:
-    proxy_ip: proxy
-    proxy_port: 3128
-    proxy_env:
-      HTTP_PROXY: http://{{ proxy_ip }}:{{ proxy_port }}
-      HTTPS_PROXY: https://{{ proxy_ip }}:{{ proxy_port }}
-
   environment: "{{ proxy_env }}"
 
   pre_tasks:
     - name: Debug environment variables
-      debug:
+      ansible.builtin.debug:
         msg:
           "ansible_env": "{{ ansible_env }}"
+          "proxy_env": "{{ proxy_env }}"
         verbosity: 1
 
-    - name: Install php-pear for testing purposes
-      apt:
-        name:
-          - php-cli
-          - php-pear
-        state: present
-
-    - name: Ensure wget is present
-      apt:
-        name: wget
-        state: present
-      
   roles:
-    - name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}" # finally invoke role
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}"

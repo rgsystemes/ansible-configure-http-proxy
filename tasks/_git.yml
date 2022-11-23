@@ -1,6 +1,6 @@
 ---
 - name: Update ~/.gitconfig
-  git_config:
+  community.general.source_control.git_config:
     name: http.proxy
     scope: global
     value: "{{ proxy_url }}"

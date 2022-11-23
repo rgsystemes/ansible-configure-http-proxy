@@ -1,0 +1,23 @@
+---
+- name: Get current user's home directory
+  ansible.builtin.shell:
+    executable: /bin/bash
+    cmd: echo $HOME
+  register: home_output
+  changed_when: false
+
+- name: Set proxy_curl path
+  ansible.builtin.set_fact:
+    proxy_curl_path: "{{ home_output.stdout }}/.curlrc"
+
+- name: Configure curl
+  ansible.builtin.lineinfile:
+    path: "{{ proxy_curl_path }}"
+    line: "{{ item.key }} = {{ item.value }}"
+    create: yes
+    regexp: "^#?{{ item.key }}"
+    state: present
+    mode: 0660
+  loop:
+    - key: proxy
+      value: "{{ proxy_url }}"

@@ -1,16 +1,16 @@
 ---
 - name: Get the package facts
-  package_facts:
+  ansible.builtin.package_facts:
     manager: auto
   tags: ['always']
 
 - name: Update facts
-  set_fact:
+  ansible.builtin.set_fact:
     apt_packages: "{{ ansible_facts.packages | flatten }}"
   tags: ['always']
 
 - name: Compute proxy_url if credentials are set
-  set_fact:
+  ansible.builtin.set_fact:
     proxy_url: "http://{{ proxy_username }}:{{ proxy_password | urlencode }}@{{ proxy_ip }}:{{ proxy_port }}"
   when: proxy_username is defined and
         proxy_username and
@@ -19,33 +19,42 @@
   tags: ['always']
 
 - name: Configure APT
-  import_tasks: _apt.yml
+  ansible.builtin.import_tasks: _apt.yml
   when: proxy_configure_apt
   tags: ['apt']
   
+- name: Configure curl
+  ansible.builtin.import_tasks: _curl.yml
+  when: 
+    - proxy_configure_curl
+    - '"curl" in apt_packages'
+  tags: ['curl']
+
 - name: Configure wget
-  import_tasks: _wget.yml
+  ansible.builtin.import_tasks: _wget.yml
   when: 
     - proxy_configure_wget
     - '"wget" in apt_packages'
   tags: ['wget']
-  
+
 - name: Configure Git
-  import_tasks: _git.yml
+  ansible.builtin.import_tasks: _git.yml
   when: '"git" in apt_packages'
   tags: ['git']
 
 - name: Configure Npm
-  import_tasks: _npm.yml
+  ansible.builtin.import_tasks: _npm.yml
   when: '"nodejs" in apt_packages'
   tags: ['npm']
 
 - name: Configure Docker
-  import_tasks: _docker.yml
-  when: '"docker-ce" in apt_packages'
+  ansible.builtin.import_tasks: _docker.yml
+  when: 
+    - proxy_configure_docker
+    - '"docker-ce" in apt_packages'
   tags: ['docker']
 
 - name: Configure PECL
-  import_tasks: _pecl.yml
+  ansible.builtin.import_tasks: _pecl.yml
   when: '"php-pear" in apt_packages'
   tags: ['pecl']
