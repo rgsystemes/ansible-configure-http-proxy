@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  namespace: rgsystem
-  role_name: configure_http_proxy
-  author: Frank Fidanza <frank.fidanza@rgsystem.com>
+  namespace: rgsystemes
+  role_name: configure-http-proxy
+  author: Frank Fidanza
   company: RG System
   description: Configures HTTP_PROXY on remote hosts for several tools
   min_ansible_version: '2.13'
